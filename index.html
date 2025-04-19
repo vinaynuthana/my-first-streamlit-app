@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Meaning of the day!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    label, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.7rem;
+      background-color: #0077cc;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 2rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .result h2 {
+      color: #0077cc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Meaning of the day!</h1>
+
+  <label for="name">Enter your name:</label>
+  <input type="text" id="name">
+
+  <label for="dob">Enter your date of birth:</label>
+  <input type="date" id="dob">
+
+  <button onclick="showMeaning()">Find Meaning</button>
+
+  <div class="result" id="output" style="display: none;">
+    <h2>Results:</h2>
+    <p id="nameMeaning"></p>
+    <p id="dayName"></p>
+    <p id="dayMeaning"></p>
+    <hr>
+    <p id="summary"></p>
+  </div>
+
+  <script>
+    const dayMeanings = {
+      Sunday: "A day of rest, renewal, and reflection.",
+      Monday: "Symbolizes new beginnings, motivation, and productivity.",
+      Tuesday: "A day of action, courage, and drive.",
+      Wednesday: "Known for communication, learning, and adaptability.",
+      Thursday: "A day of growth, wisdom, and generosity.",
+      Friday: "Represents love, beauty, and creativity.",
+      Saturday: "A time for structure, discipline, and focus."
+    };
+
+    function getDayName(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('en-US', { weekday: 'long' });
+    }
+
+    function getNameMeaning(name) {
+      return `The name "${name}" suggests strength, uniqueness, and purpose.`; // Placeholder
+    }
+
+    function showMeaning() {
+      const name = document.getElementById("name").value.trim();
+      const dob = document.getElementById("dob").value;
+
+      if (!name || !dob) {
+        alert("Please enter both your name and date of birth.");
+        return;
+      }
+
+      const nameMeaning = getNameMeaning(name);
+      const day = getDayName(dob);
+      const dayMeaning = dayMeanings[day];
+      const summary = `${nameMeaning} You were born on a ${day}, which is associated with ${dayMeaning.toLowerCase()}`;
+
+      document.getElementById("nameMeaning").textContent = `Name Meaning: ${nameMeaning}`;
+      document.getElementById("dayName").textContent = `Day of Birth: ${day}`;
+      document.getElementById("dayMeaning").textContent = `Meaning of the Day: ${dayMeaning}`;
+      document.getElementById("summary").textContent = `Summary: ${summary}`;
+
+      document.getElementById("output").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
